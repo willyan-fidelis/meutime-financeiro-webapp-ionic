@@ -1,0 +1,32 @@
+page-groupmembers {
+
+  ion-card {
+    position: relative;
+    text-align: center;
+  }
+
+  ion-icon.big-size {
+  font-size: 5rem;
+    //color: CadetBlue;
+  }
+  .h2 {
+    color: map-get($colors, secondary);
+  }
+
+  .text-center {
+    text-align: center;
+  }
+  ion-content {
+      -webkit-user-select: text;
+      user-select: text;
+  }
+
+/*   .noselect {
+    -webkit-touch-callout: none; 
+    -webkit-user-select: none;   
+    -khtml-user-select: none;    
+    -moz-user-select: none;      
+    -ms-user-select: none;      
+    user-select: none;
+  } */
+}

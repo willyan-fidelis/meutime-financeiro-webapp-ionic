@@ -1,0 +1,6 @@
+<ion-tabs color="button" *ngIf="this.user.userIsLoggedIn() == true">
+  <ion-tab [root]="tab0Root" tabTitle="Home" tabIcon="home"></ion-tab>
+  <ion-tab [root]="tab1Root" tabTitle="Grupos" tabIcon="list"></ion-tab>
+  <ion-tab [root]="tab2Root" tabTitle="Conta" tabIcon="person"></ion-tab>
+  <ion-tab [root]="tab3Root" tabTitle="Ajuda" tabIcon="help"></ion-tab>
+</ion-tabs>

@@ -1,0 +1,64 @@
+<ion-header>
+  <!-- <ion-toolbar>
+    <ion-title>
+      Membros
+    </ion-title>
+    <ion-buttons start>
+      <button ion-button (click)="dismiss()">
+        <ion-icon name="close" showWhen="ios,android,windows"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-toolbar> -->
+  <header></header>
+</ion-header>
+
+<ion-content>
+
+  <ion-card>
+    <div>
+      <ion-list>
+        <ion-list-header  class="text-center">
+          <h2><b>Copie o link abaixo e envie para <br> seus amigos participarem deste grupo</b></h2>
+        </ion-list-header>
+<!--         <ion-item>
+          <p id="p1" class="text-center">http://meutime.co/app/?weblink=<br>groupinvitation&xparam1={{this.groupDetail.TGroup_OID}}</p>
+        </ion-item> -->
+      </ion-list>
+    </div>
+    <input id="myInput" readonly type="text" [value]="'http://meutime.co/app/?weblink=groupinvitation&xparam1='+this.groupDetail.TGroup_OID">
+    
+    <button (click)="copy()" ion-button color="button" block>Copiar Link</button>
+  </ion-card>
+
+  <ion-card>
+    <!-- <img [src]="this.config.host.LoginPage.imgPath_campo"/> -->
+    <ion-list class="card-title">
+      <ion-list-header color="list-element-title" (click)="this.group.getUserGroupsAndCashFlow()">
+      Lista de Jogadores
+    </ion-list-header>
+
+    <ion-item-sliding *ngFor="let _item of this.groupmembers; let i = index">
+      <ion-item>
+        <ion-avatar item-start>
+          <ion-icon class="big-size" name="md-person"></ion-icon>
+        </ion-avatar>
+        <h2 class="h2">{{_item.Name}}</h2>
+        <p>{{_item.Email}}</p>
+        <p>{{_item.Phone}}</p>
+        <ion-badge *ngIf="userIsadmin(_item.UserPrivileges)" item-end>Administrador</ion-badge>
+      </ion-item>
+      <ion-item-options>
+        <button (click)="deleteuserfromgroup(_item.UserOID, _item.Email)" ion-button color="secondary" icon-start>
+          <ion-icon name="md-trash"></ion-icon>
+          Apagar
+        </button>
+      </ion-item-options>
+    </ion-item-sliding>
+    </ion-list>
+  </ion-card>
+
+  <br><br><br><br>
+
+</ion-content>
+
+<tabs [TabList]="tabObject" (OnTabClickEvent)="tabClick($event)" ></tabs>

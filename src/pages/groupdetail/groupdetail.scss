@@ -1,0 +1,32 @@
+page-groupdetail {
+
+  ion-icon.pay-ok {
+    font-size: 5rem;
+    color: #006600;
+  }
+  ion-icon.pay-nok {
+    font-size: 5rem;
+    color: #ff0000;
+  }
+  ion-icon.pay-unknow {
+    font-size: 5rem;
+    color: gray;
+  }
+  .h2 {
+    color: map-get($colors, secondary);
+  }
+
+  .timeTitle{
+    text-align: center;
+    color: map-get($colors, primary);
+  }
+
+ion-content {
+    -webkit-user-select: text;
+    user-select: text;
+}
+ion-card {
+  position: relative;
+  text-align: center;
+}
+}

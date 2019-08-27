@@ -1,0 +1,22 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+      Ajuda
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-list>
+    <ion-list-header color="list-element-title">
+      MeuTime
+    </ion-list-header>
+    <ion-item>
+      <h2>Contato</h2>
+      <p>Tire suas duvidas pelo WhatsApp</p>
+      <a href="https://api.whatsapp.com/send?phone=5547991138325&text=Ol%C3%A1%2C%20preciso%20de%20ajuda!">WhatsApp</a>
+    </ion-item>
+  </ion-list>
+</ion-content>
+
+<tabs [TabList]="tabObject" (OnTabClickEvent)="tabClick($event)" ></tabs>

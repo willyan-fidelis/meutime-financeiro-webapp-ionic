@@ -1,0 +1,22 @@
+<!-- <div>
+  {{text}}
+</div> -->
+
+
+<!-- https://stackoverflow.com/questions/49424233/ionic-segment-button-with-icon-and-text-to-make-like-tab-bar -->
+<ion-footer>
+  <ion-segment [(ngModel)]="tabList.Selected">
+      <ion-segment-button *ngFor="let _item of this.tabList.TabList; let i = index" (click)="tabClick(_item)" [value]="_item.Name" style=color:white>
+        <ion-icon [name]="_item.Icon"></ion-icon>
+        <div style="margin-top: -20px !important; ">
+          {{_item.Text}}
+        </div>
+      </ion-segment-button>
+    <!-- <ion-segment-button value="diesel_20" style=color:white>
+      <ion-icon name="home"></ion-icon>
+      <div style="margin-top: -20px !important; ">
+        Diesel
+      </div>
+    </ion-segment-button> -->
+  </ion-segment>
+</ion-footer>

@@ -1,0 +1,31 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>Primeiros Passos</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content class="tutorial-page">
+
+  <ion-slides pager>
+    <ion-slide *ngFor="let slide of slides">
+      <ion-toolbar>
+        <ion-buttons end>
+          <button (click)="start()" ion-button color="primary">Pular</button>
+        </ion-buttons>
+      </ion-toolbar>
+      <img [src]="slide.image" class="slide-image"/>
+      <h2 class="slide-title" [innerHTML]="slide.title"></h2>
+      <p [innerHTML]="slide.description"></p>
+    </ion-slide>
+    <ion-slide>
+      <ion-toolbar>
+      </ion-toolbar>
+      <img src="assets/imgs/ready.jpg" class="slide-image"/>
+      <h2 class="slide-title">Pronto para começar?</h2>
+      <button (click)="start()" ion-button large clear icon-end color="primary">
+        Continuar
+        <ion-icon name="arrow-forward"></ion-icon>
+      </button>
+    </ion-slide>
+  </ion-slides>
+</ion-content>

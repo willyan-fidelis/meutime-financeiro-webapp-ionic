@@ -1,0 +1,44 @@
+page-login {
+  ion-card {
+    position: relative;
+    text-align: center;
+  }
+
+  .card-title {
+    position: absolute;
+    top: 36%;
+    font-size: 2.0em;
+    width: 100%;
+    font-weight: bold;
+    color: #fff;
+  }
+
+  .card-subtitle {
+    font-size: 1.0em;
+    position: absolute;
+    top: 52%;
+    width: 100%;
+    color: #fff;
+  }
+
+  .logo_img {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
+    //height: 100%;
+  }
+  .center {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+    // .bg-image{
+    //     background-image: url('../assets/imgs/campo.jpg');
+    //     background-repeat: no-repeat;
+    //     background-position: center;
+    //     background-size: cover;
+    // }
+
+}

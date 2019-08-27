@@ -1,0 +1,47 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+      Conta
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+
+  <ion-list>
+    <ion-list-header color="list-element-title">
+      Dados Cadastrais
+    </ion-list-header>
+
+    <ion-item>
+      <ion-label>Nome</ion-label>
+      <ion-input disabled="true" [(ngModel)]="this.user.getUser().Name" type="text" placeholder="Nome"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Email</ion-label>
+      <ion-input disabled="true" [(ngModel)]="this.user.getUser().Email" type="text" placeholder="Email"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>CPF</ion-label>
+      <ion-input disabled="true" [(ngModel)]="this.user.getUser().CPF" type="text" placeholder="CPF"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Telefone</ion-label>
+      <ion-input disabled="true" [(ngModel)]="this.user.getUser().Phone" type="text" placeholder="Numero do telefone"></ion-input>
+    </ion-item>
+
+  </ion-list>
+
+  <button (click)="changePwd()" ion-button color="button" block>Alterar Senha</button>
+
+  <button (click)="logout()" ion-button color="button" block>Sair</button>
+
+  <!-- <a (click)="logout()" href="http://meutime.co/">Sair</a> -->
+
+</ion-content>
+
+
+<tabs [TabList]="tabObject" (OnTabClickEvent)="tabClick($event)" ></tabs>

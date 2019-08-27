@@ -1,0 +1,86 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>
+      <!-- Detalhes do Grupo -->
+      <img class="center" alt="logo" height="40"  [src]="this.config.host.LoginPage.imgPath_logo3" >
+    </ion-title>
+    <ion-buttons start *ngIf="showAsModal">
+      <button ion-button (click)="dismiss()">
+        <span color="primary" showWhen="ios">Cancel</span>
+        <ion-icon name="md-close-circle" showWhen="android,windows"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content>
+
+  <div *ngIf="show()">
+    <ion-list>
+      <ion-list-header class="text-center" (click)="this.getTransactionList()">
+        {{this.groupDetail().Name}}
+      </ion-list-header>
+    </ion-list>
+  
+    <ion-card>
+      <p class="text-center">Saldo atual</p>
+      <h1 class="text-center"><b>{{returnTotal()}}</b></h1>
+    </ion-card>
+  
+    <ion-card>
+      <ion-item color="secondary" (click)="showGroupMembers()">
+        <ion-icon name="md-people" item-start></ion-icon>
+        <h2>Jogadores</h2>
+        <p>Membros do Grupo</p>
+      </ion-item>
+    </ion-card>
+  
+    <ion-card>
+      <ion-item color="secondary" (click)="showUserGrouptDetais('B')">
+        <ion-icon name="md-repeat" item-start></ion-icon>
+        <h2>Extrato Financeiro</h2>
+        <p>Movimentações e resumo financeiro</p>
+      </ion-item>
+    </ion-card>
+  
+    <ion-card>
+      <ion-item color="secondary" (click)="showUserGrouptDetais('C')">
+        <ion-icon name="md-done-all" item-start></ion-icon>
+        <h2>Status de Pagamentos</h2>
+        <p>Veja qual jogador ainda não pagou a mensalidade.</p>
+      </ion-item>
+    </ion-card>
+  
+    <ion-card>
+      <ion-item color="secondary" (click)="showUserGrouptDetais('D')">
+        <ion-icon name="md-return-right" item-start></ion-icon>
+        <h2>Transferencias</h2>
+        <p>Transfira o saldo para sua conta ou para uma quadra</p>
+      </ion-item>
+    </ion-card>
+
+    <ion-card *ngIf="true">
+      <ion-item color="secondary" (click)="showUserGrouptDetais('E')">
+        <ion-icon name="hand" item-start></ion-icon>
+        <h2>Lançamento Manual</h2>
+        <p>Crie lançamento e saques manuais</p>
+      </ion-item>
+    </ion-card>
+  </div>
+
+  <ion-card *ngIf="!show()">
+
+    <img [src]="this.config.host.LoginPage.imgPath_logo3">
+  
+    <ion-item>
+      <ion-icon name="football" item-start large></ion-icon>
+      <h2>Crie seu grupo e convide os amigos!</h2>
+      <p>Novo por aqui?<br>Vá para 'Grupos' e crie seu primeiro Time!</p>
+    </ion-item>
+  
+  </ion-card>
+
+</ion-content>
+
+<tabs [TabList]="tabObject" (OnTabClickEvent)="tabClick($event)" ></tabs>

@@ -1,0 +1,18 @@
+page-groupoverview {
+    .h2 {
+      color: map-get($colors, secondary);
+    }
+
+    .center {
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+      //width: 30%;
+      //height: 10%;
+    }
+
+    .text-center {
+      text-align: center;
+    }
+
+}

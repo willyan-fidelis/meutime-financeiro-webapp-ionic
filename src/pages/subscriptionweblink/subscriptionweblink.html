@@ -1,0 +1,173 @@
+<!--
+  Generated template for the SubscriptionweblinkPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>subscriptionweblink</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <ion-item>
+    <ion-icon name="football" item-start large></ion-icon>
+    <h2>Mensalidade Quadra de Esportes</h2>
+    <p>Assinatura</p>
+  </ion-item>
+
+  <ion-card>
+
+    <!-- <ion-card-header>
+      Para Efetuar o Pagamento, insira o seu email ou CPF
+    </ion-card-header> -->
+
+
+
+
+    <!-- Dados de Cartão e do proprietario do cartão -->
+    <div>
+
+      <ion-item>
+        <ion-icon name="ios-contact-outline" item-start large></ion-icon>
+        <h2>Detalhes do Usuário</h2>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>Nome</ion-label>
+        <ion-input disabled="true" [(ngModel)]="user.name" type="text"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>Grupo</ion-label>
+        <ion-input disabled="true" [(ngModel)]="user.club" type="text"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-icon name="ios-card" item-start large></ion-icon>
+        <h2>Insira os dados do cartão de credito</h2>
+      </ion-item>
+
+      <ion-card-content>
+        <ion-list>
+
+          <ion-item>
+            <ion-label>Nome</ion-label>
+            <ion-input [(ngModel)]="card.cc_name" type="text" placeholder="PEDRO A. MOREIRA"></ion-input>
+          </ion-item>
+
+          <ion-item>
+            <ion-label>Número do cartão</ion-label>
+            <ion-input [(ngModel)]="card.cc_number" type="text" placeholder="55558889992222"></ion-input>
+          </ion-item>
+
+          <ion-list>
+            <ion-item>
+              <ion-label>Mês</ion-label>
+              <ion-select [(ngModel)]="card.cc_month">
+                <ion-option value="1">01</ion-option>
+                <ion-option value="2">02</ion-option>
+                <ion-option value="3">03</ion-option>
+                <ion-option value="4">04</ion-option>
+                <ion-option value="5">05</ion-option>
+                <ion-option value="6">06</ion-option>
+                <ion-option value="7">07</ion-option>
+                <ion-option value="8">08</ion-option>
+                <ion-option value="9">09</ion-option>
+                <ion-option value="10">10</ion-option>
+                <ion-option value="11">11</ion-option>
+                <ion-option value="12">12</ion-option>
+              </ion-select>
+            </ion-item>
+          </ion-list>
+
+          <ion-list>
+            <ion-item>
+              <ion-label>Ano</ion-label>
+              <ion-select [(ngModel)]="card.cc_year">
+                <ion-option value="18">2018</ion-option>
+                <ion-option value="19">2019</ion-option>
+                <ion-option value="20">2020</ion-option>
+                <ion-option value="21">2021</ion-option>
+                <ion-option value="22">2022</ion-option>
+                <ion-option value="23">2023</ion-option>
+                <ion-option value="24">2024</ion-option>
+                <ion-option value="25">2025</ion-option>
+                <ion-option value="26">2026</ion-option>
+                <ion-option value="27">2027</ion-option>
+                <ion-option value="28">2028</ion-option>
+                <ion-option value="29">2029</ion-option>
+                <ion-option value="30">2030</ion-option>
+                <ion-option value="31">2031</ion-option>
+                <ion-option value="32">2032</ion-option>
+                <ion-option value="33">2033</ion-option>
+                <ion-option value="34">2034</ion-option>
+                <ion-option value="35">2035</ion-option>
+                <ion-option value="36">2036</ion-option>
+                <ion-option value="37">2037</ion-option>
+                <ion-option value="38">2038</ion-option>
+                <ion-option value="39">2039</ion-option>
+                <ion-option value="40">2040</ion-option>
+              </ion-select>
+            </ion-item>
+          </ion-list>
+
+          <ion-item>
+            <ion-label>CCV</ion-label>
+            <ion-input [(ngModel)]="card.cc_ccv" type="text" placeholder="425"></ion-input>
+          </ion-item>
+
+          <!-- <ion-item>
+            <button ion-button full>Consultar</button>
+          </ion-item> -->
+
+        </ion-list>
+
+      </ion-card-content>
+
+      <ion-item>
+        <ion-icon name="ios-card" item-start large></ion-icon>
+        <h2>Insira os dados do proprietário do cartão</h2>
+      </ion-item>
+
+      <ion-card-content>
+        <ion-list>
+
+          <ion-item>
+            <ion-label>Nome</ion-label>
+            <ion-input [(ngModel)]="card.cch_name" type="text" placeholder="PEDRO A. MOREIRA"></ion-input>
+          </ion-item>
+
+          <ion-item>
+            <ion-label>Email</ion-label>
+            <ion-input [(ngModel)]="card.cch_email" type="text" placeholder="pedro@gmail.com"></ion-input>
+          </ion-item>
+
+          <ion-item>
+            <ion-label>CPF</ion-label>
+            <ion-input [(ngModel)]="card.cch_cpf" type="text" placeholder="05277755801"></ion-input>
+          </ion-item>
+
+          <ion-item>
+            <ion-label>Telefone</ion-label>
+            <ion-input [(ngModel)]="card.cch_phone" type="text" placeholder="47988553322"></ion-input>
+          </ion-item>
+
+          <ion-item>
+            <button (click)="btnAPIasaasPay()" ion-button full>Assinar Agora - R${{user.debt}}.00</button>
+          </ion-item>
+
+        </ion-list>
+
+      </ion-card-content>
+    </div>
+
+
+
+
+  </ion-card>
+</ion-content>

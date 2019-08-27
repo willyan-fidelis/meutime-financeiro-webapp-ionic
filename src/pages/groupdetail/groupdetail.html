@@ -1,0 +1,607 @@
+<ion-header>
+  <!-- <ion-toolbar>
+    <ion-title>
+      {{this.groupDetail.Name}}
+    </ion-title>
+    <ion-buttons start>
+      <button ion-button (click)="dismiss()">
+        <ion-icon name="md-close-circle" showWhen="ios,android,windows"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-toolbar> -->
+  <header></header>
+</ion-header>
+
+
+<ion-content>
+
+  <div *ngIf="this.pageID == 'A'">
+    <ion-list>
+      <ion-list-header color="list-element-title">
+        Detalhes do Grupo
+      </ion-list-header>
+      <ion-item>
+        <h2>Grupo: {{this.groupDetail.Name}}</h2>
+        <p>Detalhes: {{this.groupDetail.Description}}</p>
+        <p>Nome do Adimin.: {{this.groupDetail.OwnerName}}</p>
+        <p>Email do Adimin.: {{this.groupDetail.OwnerEmail}}</p>
+        <p>Celular do Adimin.: {{this.groupDetail.OwnerPhone}}</p>
+        <p>Mensalidade.: {{this.groupDetail.Value}}</p>
+        <p>Criado em: {{this.groupDetail.Date}}</p>
+        <p>Dia do pagamento: {{this.groupDetail.DateToPayModel.Day}}</p>
+        <br>
+        <b>Link de Pagamento:</b>
+        <br><br>
+        <a [href]="this.groupDetail.SubLink">{{this.groupDetail.SubLink}}</a>
+        <br><br>
+        <p>{{this.groupDetail.SubLink}}</p>
+        <br>
+
+      </ion-item>
+    </ion-list>
+  </div>
+
+  <div *ngIf="this.pageID == 'B'">
+    <ion-list>
+      <ion-list-header color="list-element-title">
+        Resumo Financeiro
+      </ion-list-header>
+      <ion-item>
+        <h2>Dinheiro em caixa: R${{returnTotal()}}</h2>
+        <p>Total de entradas: R${{returnInput()}}</p>
+        <p>Total de saidas: R${{returnOutput()}}</p>
+        <h2>Dinheiro disponível para saque: R${{returnTotalAvailableForWithdrawal()}}</h2>
+      </ion-item>
+    </ion-list>
+    <ion-list *ngIf="this.groupCash() != null && this.groupCash() != undefined">
+      <ion-list-header color="list-element-title">
+        Extrato Financeiro
+      </ion-list-header>
+
+      <tab-month-nav (OnNextClickEvent)="addAndSubMonth(true);" (OnPreviousClickEvent)="addAndSubMonth(false);" (OnCurrentClickEvent)="selectedMonth=currentMonth;" [TabValue]="selectedMonth"></tab-month-nav>
+
+      <div *ngFor="let _item of this.groupCash(); let i = index">
+        <ion-item>
+          <!-- <ion-icon name="heart"></ion-icon> -->
+          <ion-avatar item-left>
+            <ion-icon *ngIf="_item.TCashFlowType_OID == 1" ngClass="pay-ok" name="md-add"></ion-icon>
+            <ion-icon *ngIf="_item.TCashFlowType_OID == 2" ngClass="pay-nok" name="md-remove"></ion-icon>
+          </ion-avatar>
+          <!-- <ion-thumbnail item-start>
+            <img [src]="_item.TProductImagesURL+'/1.jpg'">
+          </ion-thumbnail> -->
+          <h2><b>R${{_item.CleanValue}}</b></h2>
+          <p>{{_item.Date}}</p>
+          <p>{{_item.Name}}</p>
+
+          <!-- <p *ngIf="_item.TFinancialTransactionStatusConcise == this.TransStatus.ok">Status: Pago</p>
+          <p *ngIf="_item.TFinancialTransactionStatusConcise == this.TransStatus.nok">Status: Não Pago</p>
+          <p *ngIf="_item.TFinancialTransactionStatusConcise == this.TransStatus.open">Status: Em Aberto</p> -->
+        </ion-item>
+      </div>
+    </ion-list>
+  </div>
+
+  <div *ngIf="this.pageID == 'C'">
+
+  <ion-card>
+
+    <button (click)="showpayment()" ion-button color="button" block>Inscrever-se</button>
+
+    <div *ngIf="st_showpayment == true">
+
+      <ion-item>
+        <ion-icon name="ios-card" item-start large></ion-icon>
+        <h2>Insira os dados do cartão de credito</h2>
+      </ion-item>
+
+      <ion-card-content>
+        <ion-list>
+
+          <ion-item>
+            <ion-label floating>Nome</ion-label>
+            <ion-input [(ngModel)]="card.cc_name" type="text"></ion-input>
+          </ion-item>
+
+          <ion-item>
+            <ion-label floating>Número do cartão</ion-label>
+            <ion-input [(ngModel)]="card.cc_number" type="text"></ion-input>
+          </ion-item>
+
+          <ion-list>
+            <ion-item>
+              <ion-label>Mês</ion-label>
+              <ion-select [(ngModel)]="card.cc_month">
+                <ion-option value="1">01</ion-option>
+                <ion-option value="2">02</ion-option>
+                <ion-option value="3">03</ion-option>
+                <ion-option value="4">04</ion-option>
+                <ion-option value="5">05</ion-option>
+                <ion-option value="6">06</ion-option>
+                <ion-option value="7">07</ion-option>
+                <ion-option value="8">08</ion-option>
+                <ion-option value="9">09</ion-option>
+                <ion-option value="10">10</ion-option>
+                <ion-option value="11">11</ion-option>
+                <ion-option value="12">12</ion-option>
+              </ion-select>
+            </ion-item>
+          </ion-list>
+
+          <ion-list>
+            <ion-item>
+              <ion-label>Ano</ion-label>
+              <ion-select [(ngModel)]="card.cc_year">
+                <ion-option value="18">2018</ion-option>
+                <ion-option value="19">2019</ion-option>
+                <ion-option value="20">2020</ion-option>
+                <ion-option value="21">2021</ion-option>
+                <ion-option value="22">2022</ion-option>
+                <ion-option value="23">2023</ion-option>
+                <ion-option value="24">2024</ion-option>
+                <ion-option value="25">2025</ion-option>
+                <ion-option value="26">2026</ion-option>
+                <ion-option value="27">2027</ion-option>
+                <ion-option value="28">2028</ion-option>
+                <ion-option value="29">2029</ion-option>
+                <ion-option value="30">2030</ion-option>
+                <ion-option value="31">2031</ion-option>
+                <ion-option value="32">2032</ion-option>
+                <ion-option value="33">2033</ion-option>
+                <ion-option value="34">2034</ion-option>
+                <ion-option value="35">2035</ion-option>
+                <ion-option value="36">2036</ion-option>
+                <ion-option value="37">2037</ion-option>
+                <ion-option value="38">2038</ion-option>
+                <ion-option value="39">2039</ion-option>
+                <ion-option value="40">2040</ion-option>
+              </ion-select>
+            </ion-item>
+          </ion-list>
+
+          <ion-item>
+            <ion-label floating>CCV</ion-label>
+            <ion-input [(ngModel)]="card.cc_ccv" type="text"></ion-input>
+          </ion-item>
+
+        </ion-list>
+
+      </ion-card-content>
+
+      <ion-item>
+        <ion-icon name="ios-card" item-start large></ion-icon>
+        <h2>Insira os dados do proprietário do cartão</h2>
+      </ion-item>
+
+      <ion-card-content>
+        <ion-list>
+
+          <ion-item>
+            <ion-label floating>Nome</ion-label>
+            <ion-input [(ngModel)]="card.cch_name" type="text"></ion-input>
+          </ion-item>
+
+          <ion-item>
+            <ion-label floating>Email</ion-label>
+            <ion-input [(ngModel)]="card.cch_email" type="email"></ion-input>
+          </ion-item>
+
+          <ion-item>
+            <ion-label floating>CPF</ion-label>
+            <ion-input [(ngModel)]="card.cch_cpf" type="text"></ion-input>
+          </ion-item>
+
+          <ion-item>
+            <ion-label floating>Telefone</ion-label>
+            <ion-input [(ngModel)]="card.cch_phone" type="text"></ion-input>
+          </ion-item>
+
+          <ion-item>
+            <ion-label floating>CEP</ion-label>
+            <ion-input [(ngModel)]="card.cch_postalcode" type="text"></ion-input>
+          </ion-item>
+
+          <ion-item>
+            <ion-label floating>Número</ion-label>
+            <ion-input [(ngModel)]="card.cch_address_number" type="text"></ion-input>
+          </ion-item>
+          <b>Mensalidade</b>
+          <p>R${{this.groupDetail.Value}}</p>
+          <b>Taxas</b>
+          <p>R${{returnTax()}}</p>
+          <b>Total</b>
+          <p>R${{returnValueToPay()}}</p>
+          <ion-item>
+            <button (click)="PayTodayAndSubscribeNextMonthWithCC()" ion-button full>Assinar Agora - R${{returnValueToPay()}}</button>
+          </ion-item>
+
+        </ion-list>
+
+      </ion-card-content>
+    </div>
+
+  </ion-card>
+
+  <ion-card>
+      <ion-list *ngIf="this.groupCashIn() == null || this.groupCashIn() == undefined">
+          <ion-list-header color="list-element-title">
+            Status de pagamento vazio
+          </ion-list-header>
+        </ion-list>
+        <ion-list *ngIf="this.groupCashIn() != null && this.groupCashIn() != undefined">
+          <ion-list-header color="list-element-title">
+            Status de pagamento
+          </ion-list-header>
+
+          <tab-month-nav (OnNextClickEvent)="addAndSubMonth(true);" (OnPreviousClickEvent)="addAndSubMonth(false);" (OnCurrentClickEvent)="selectedMonth=currentMonth;" [TabValue]="selectedMonth"></tab-month-nav>
+
+<!--           <div *ngFor="let _item of this.groupCashIn(); let i = index">
+            <ion-item>
+              
+              <ion-avatar item-left>
+                <ion-icon *ngIf="_item.TFinancialTransactionStatusConcise == this.TransStatus.ok" ngClass="pay-ok" name="checkmark"></ion-icon>
+                <ion-icon *ngIf="_item.TFinancialTransactionStatusConcise == this.TransStatus.nok" ngClass="pay-nok" name="close"></ion-icon>
+                <ion-icon *ngIf="_item.TFinancialTransactionStatusConcise == this.TransStatus.open" ngClass="pay-unknow" name="refresh"></ion-icon>
+              </ion-avatar>
+
+              <h2>{{_item.Name}}</h2>
+              <p>R${{_item.CleanValue}}</p>
+              <p *ngIf="_item.TFinancialTransactionStatusConcise == this.TransStatus.ok">Status: Pago</p>
+              <p *ngIf="_item.TFinancialTransactionStatusConcise == this.TransStatus.nok">Status: Não Pago</p>
+              <p *ngIf="_item.TFinancialTransactionStatusConcise == this.TransStatus.open">Status: Em Aberto</p>
+            </ion-item>
+          </div> -->
+
+          <ion-item-sliding *ngFor="let _item of this.groupCashIn(); let i = index">
+            <ion-item>
+              <ion-avatar item-left>
+                <ion-icon *ngIf="_item.TFinancialTransactionStatusConcise == this.TransStatus.ok" ngClass="pay-ok" name="checkmark"></ion-icon>
+                <ion-icon *ngIf="_item.TFinancialTransactionStatusConcise == this.TransStatus.nok" ngClass="pay-nok" name="close"></ion-icon>
+                <ion-icon *ngIf="_item.TFinancialTransactionStatusConcise == this.TransStatus.open" ngClass="pay-unknow" name="refresh"></ion-icon>
+              </ion-avatar>
+              <h2>{{_item.Name}}</h2>
+              <p>R${{_item.CleanValue}}</p>
+              <p *ngIf="_item.TFinancialTransactionStatusConcise == this.TransStatus.ok">Status: Pago</p>
+              <p *ngIf="_item.TFinancialTransactionStatusConcise == this.TransStatus.nok">Status: Não Pago</p>
+              <p *ngIf="_item.TFinancialTransactionStatusConcise == this.TransStatus.open">Status: Em Aberto</p>
+            </ion-item>
+            <ion-item-options>
+              <button (click)="deleteCashFlow(_item.CashOID)" ion-button color="primary" icon-start>
+                <ion-icon name="md-trash"></ion-icon>
+                Apagar
+              </button>
+
+              <button (click)="changeStatusCashFlow(_item.CashOID,_item.CleanValue,_item.Description,_item.TFinancialTransactionStatus)" ion-button color="secondary" icon-start>
+                <ion-icon name="build"></ion-icon>
+                Editar
+              </button>
+            </ion-item-options>
+          </ion-item-sliding>
+
+        </ion-list>
+  </ion-card>
+  
+  </div>
+
+  <div *ngIf="this.pageID == 'D'">
+
+
+    <div>
+      <ion-item>
+        <ion-icon name="ios-card" item-start large></ion-icon>
+        <h2>Solicite uma Transferencia</h2>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>Valor da transferencia</ion-label>
+        <ion-input [(ngModel)]="db_valor" type="number" placeholder="RS 50"></ion-input>
+      </ion-item>
+
+      <ion-card-content>
+        <ion-list>
+          <ion-list>
+            <ion-item>
+              <ion-label>Banco</ion-label>
+              <ion-select [(ngModel)]="db_banco">
+                <ion-option value="Santander">Santander</ion-option>
+                <ion-option value="Bradesco">Bradesco</ion-option>
+                <ion-option value="Itaú">Itaú</ion-option>
+                <ion-option value="Banco do Brasil">Banco do Brasil</ion-option>
+                <ion-option value="Safra">Safra</ion-option>
+                <ion-option value="Sicob">Sicob</ion-option>
+                <ion-option value="Sicred">Sicred</ion-option>
+                <ion-option value="Outros">Outros</ion-option>
+              </ion-select>
+            </ion-item>
+          </ion-list>
+
+          <ion-item *ngIf="db_banco == 'Outros'">
+            <ion-label>Nome do Banco</ion-label>
+            <ion-input [(ngModel)]="db_banco_outros" type="text" placeholder="Digite o nome do seu banco aqui"></ion-input>
+          </ion-item>
+
+          <ion-list>
+            <ion-item>
+              <ion-label>Tipo da conta</ion-label>
+              <ion-select [(ngModel)]="db_tipoconta">
+                <ion-option value="Conta Corrente">Conta Corrente</ion-option>
+                <ion-option value="Poupança">Poupança</ion-option>
+              </ion-select>
+            </ion-item>
+          </ion-list>
+
+          <ion-item>
+            <ion-label>Numero da conta</ion-label>
+            <ion-input [(ngModel)]="db_numeroconta" type="text" placeholder="177487-3"></ion-input>
+          </ion-item>
+
+          <ion-item>
+            <ion-label>Agencia</ion-label>
+            <ion-input [(ngModel)]="db_agencia" type="text" placeholder="2388"></ion-input>
+          </ion-item>
+
+          <ion-item>
+            <ion-label>Nome do Titular</ion-label>
+            <ion-input [(ngModel)]="db_nometitular" type="text" placeholder="Pedro da Silva"></ion-input>
+          </ion-item>
+
+          <ion-item>
+            <ion-label>CPF do Titular</ion-label>
+            <ion-input [(ngModel)]="db_cpftitular" type="text" placeholder="078.589.635-02"></ion-input>
+          </ion-item>
+
+          <ion-item>
+            <ion-label>Motivo/Descrição</ion-label>
+            <ion-input [(ngModel)]="db_descricao" type="text" placeholder="Exemplo: Pagamento da quadra, saque saldo, outros.."></ion-input>
+          </ion-item>
+
+          <ion-item>
+            <button color="button" (click)="this.requestTransfer(db_valor,db_banco,db_banco_outros,db_tipoconta,db_numeroconta,db_agencia,db_nometitular,db_cpftitular,db_descricao)" ion-button full>Solicitar agora</button>
+          </ion-item>
+
+        </ion-list>
+      </ion-card-content>
+    </div>
+
+
+
+
+
+    <ion-list *ngIf="this.groupCashOut() == null || this.groupCashOut() == undefined">
+      <ion-list-header color="list-element-title">
+        Histórico de saida de dinheiro vazia
+      </ion-list-header>
+    </ion-list>
+    <ion-list *ngIf="this.groupCashOut() != null && this.groupCashOut() != undefined">
+      <ion-list-header color="list-element-title">
+        Histórico de saida de dinheiro
+      </ion-list-header>
+      
+      <tab-month-nav (OnNextClickEvent)="addAndSubMonth(true);" (OnPreviousClickEvent)="addAndSubMonth(false);" (OnCurrentClickEvent)="selectedMonth=currentMonth;" [TabValue]="selectedMonth"></tab-month-nav>
+
+      <div *ngFor="let _item of this.groupCashOut(); let i = index">
+        <ion-item>
+          <!-- <ion-icon name="heart"></ion-icon> -->
+          <ion-avatar item-left>
+            <ion-icon *ngIf="_item.TFinancialTransactionStatusConcise == this.TransStatus.ok" ngClass="pay-ok" name="checkmark"></ion-icon>
+            <ion-icon *ngIf="_item.TFinancialTransactionStatusConcise == this.TransStatus.nok" ngClass="pay-nok" name="close"></ion-icon>
+            <ion-icon *ngIf="_item.TFinancialTransactionStatusConcise == this.TransStatus.open" ngClass="pay-unknow" name="refresh"></ion-icon>
+          </ion-avatar>
+          <!-- <ion-thumbnail item-start>
+            <img [src]="_item.TProductImagesURL+'/1.jpg'">
+          </ion-thumbnail> -->
+          <h2>Beneficiário: {{_item.Name}}</h2>
+          <p>Email: {{_item.Email}}</p>
+          <p>Valor: {{_item.CleanValue}}</p>
+          <p *ngIf="_item.TFinancialTransactionStatusConcise == this.TransStatus.ok">Status: Pago</p>
+          <p *ngIf="_item.TFinancialTransactionStatusConcise == this.TransStatus.nok">Status: Não Pago</p>
+          <p *ngIf="_item.TFinancialTransactionStatusConcise == this.TransStatus.open">Status: Em Aberto</p>
+        </ion-item>
+      </div>
+    </ion-list>
+  </div>
+
+
+
+
+
+  <!-- 
+    Lançamentos/Extrações Manuais
+   -->
+  <div *ngIf="this.pageID == 'E'">
+
+      
+      
+      <!-- <ion-toolbar no-border-top>
+          <ion-segment [(ngModel)]="pet">
+            <ion-segment-button value="after" (click)="addAndSubMonth(false)">
+              Mês Anterior
+            </ion-segment-button>
+            <ion-segment-button value="current" (click)="selectedMonth=currentMonth">
+              Mês Atual
+            </ion-segment-button>
+            <ion-segment-button value="next" (click)="addAndSubMonth(true)">
+              Mês Próximo
+            </ion-segment-button>
+          </ion-segment>
+        </ion-toolbar>
+        <div>
+            <p *ngIf="selectedMonth == 1" class="timeTitle">Janeiro</p>
+            <p *ngIf="selectedMonth == 2" class="timeTitle">Fevereiro</p>
+            <p *ngIf="selectedMonth == 3" class="timeTitle">Março</p>
+            <p *ngIf="selectedMonth == 4" class="timeTitle">Abril</p>
+            <p *ngIf="selectedMonth == 5" class="timeTitle">Maio</p>
+            <p *ngIf="selectedMonth == 6" class="timeTitle">Junho</p>
+            <p *ngIf="selectedMonth == 7" class="timeTitle">Julho</p>
+            <p *ngIf="selectedMonth == 8" class="timeTitle">Agosto</p>
+            <p *ngIf="selectedMonth == 9" class="timeTitle">Setembro</p>
+            <p *ngIf="selectedMonth == 10" class="timeTitle">Outubro</p>
+            <p *ngIf="selectedMonth == 11" class="timeTitle">Novembro</p>
+            <p *ngIf="selectedMonth == 12" class="timeTitle">Dezembro</p>
+        </div> -->
+    
+    <ion-list *ngIf="(this.manualCash() != null && this.manualCash() != undefined) && (manualPay_pageID == 1)">
+      
+      <ion-card>
+        <ion-list-header color="list-element-title">
+          Lançamento Manual
+        </ion-list-header>
+
+        <tab-month-nav (OnNextClickEvent)="addAndSubMonth(true);" (OnPreviousClickEvent)="addAndSubMonth(false);" (OnCurrentClickEvent)="selectedMonth=currentMonth;" [TabValue]="selectedMonth"></tab-month-nav>
+
+        <ion-item-sliding *ngFor="let _item of this.manualCash(); let i = index">
+          <ion-item>
+              <ion-avatar item-start>
+                <ion-icon *ngIf="_item.TCashFlowType_OID == 1" ngClass="pay-ok" name="md-add"></ion-icon>
+                <ion-icon *ngIf="_item.TCashFlowType_OID == 2" ngClass="pay-nok" name="md-remove"></ion-icon>
+              </ion-avatar>
+              <h2><b>R${{_item.CleanValue}}</b></h2>
+              <p><b>{{_item.Description}}</b></p>
+              <p>{{_item.Date}}</p>
+              <p>{{_item.Name}}</p>
+              <ion-badge *ngIf="false" item-end>Administrador</ion-badge>
+            </ion-item>
+            <ion-item-options>
+
+              <button (click)="deleteCashFlow(_item.CashOID)" ion-button color="primary" icon-start>
+                <ion-icon name="md-trash"></ion-icon>
+                Apagar
+              </button>
+
+              <button (click)="manualPay_pageID = 3; manualPayEdit = _item" ion-button color="secondary" icon-start>
+                <ion-icon name="build"></ion-icon>
+                Editar
+              </button>
+              
+            </ion-item-options>
+
+        </ion-item-sliding>
+      </ion-card>
+      
+    </ion-list>
+
+    <ion-card *ngIf="(manualPay_pageID == 2)">
+
+        <ion-list class="card-title">
+          <ion-list-header color="secondary">
+            Novo Lançamento
+          </ion-list-header>
+    
+          <ion-item>
+            <ion-label floating>Descrição</ion-label>
+            <ion-input [(ngModel)]="manualPay_desc" type="text"></ion-input>
+          </ion-item>
+    
+          <ion-item>
+            <ion-label floating>Valor</ion-label>
+            <ion-input [(ngModel)]="manualPay_value" type="number"></ion-input>
+          </ion-item>
+    
+          <ion-list>
+            <ion-list-header>
+              Tipo do lançamento
+            </ion-list-header>
+    
+            <ion-item>
+              <ion-label>Tipos</ion-label>
+              <ion-select [(ngModel)]="manualPay_userToGroupFlow">
+                <ion-option value="1">Dinheiro do jogador para o grupo</ion-option>
+                <ion-option value="2">Dinheiro do grupo para o jogador</ion-option>
+              </ion-select>
+            </ion-item>
+          </ion-list>
+  
+          <ion-list>
+              <ion-list-header>
+                Escolha o jogador
+              </ion-list-header>
+      
+              <ion-item>
+                <ion-label>Jogadores</ion-label>
+                <ion-select [(ngModel)]="manualPay_userID">
+                  <div *ngFor="let _item of this.getUserList(); let i = index">
+                      <ion-option  [value]="_item.UserOID">{{_item.Name}}</ion-option>
+                  </div>
+                </ion-select>
+              </ion-item>
+            </ion-list>
+    
+    
+          <button (click)="addCashFlow(manualPay_userID,this.groupDetail().TGroup_OID,manualPay_value,manualPay_desc,manualPay_userToGroupFlow)" ion-button round color="button" block>Adicionar</button>
+          <button (click)="manualPay_pageID = 1" ion-button round color="button" block>Cancelar</button>
+    
+        </ion-list>
+    
+    
+    </ion-card>
+
+    <ion-card *ngIf="(manualPay_pageID == 3)">
+  
+      <ion-list class="card-title">
+        <ion-list-header color="secondary">
+          Edidar Lançamento
+        </ion-list-header>
+  
+        <ion-item>
+          <ion-label floating>Descrição</ion-label>
+          <ion-input [(ngModel)]="manualPayEdit.Description" type="text"></ion-input>
+        </ion-item>
+  
+        <ion-item>
+          <ion-label floating>Valor</ion-label>
+          <ion-input [(ngModel)]="manualPayEdit.CleanValue" type="number"></ion-input>
+        </ion-item>
+  
+<!--         <ion-list>
+          <ion-list-header>
+            Aletar Status
+          </ion-list-header>
+  
+          <ion-item>
+            <ion-label>Status</ion-label>
+            <ion-select [(ngModel)]="manualPayEdit.TFinancialTransactionStatus">
+              <ion-option value="1000">Pago</ion-option>
+              <ion-option value="20">Não pago</ion-option>
+              <ion-option value="-10">Em aberto</ion-option>
+            </ion-select>
+          </ion-item>
+        </ion-list>    --> 
+  
+        <button (click)="editCashFlow(manualPayEdit.CashOID,manualPayEdit.CleanValue,manualPayEdit.Description,1000)" ion-button round color="button" block>Salvar</button>
+        <button (click)="manualPay_pageID = 1" ion-button round color="button" block>Cancelar</button>
+  
+      </ion-list>
+  
+  
+    </ion-card>
+
+      <ion-fab *ngIf="(manualPay_pageID != 2)" right bottom>
+        <button ion-fab color="primary" (click)="manualPay_pageID = 2"><ion-icon name="add"></ion-icon></button>
+        <br><br><br><br>
+      </ion-fab>
+
+  </div>
+
+  <br><br><br><br>
+
+</ion-content>
+
+<!-- https://stackoverflow.com/questions/49424233/ionic-segment-button-with-icon-and-text-to-make-like-tab-bar -->
+<!-- <ion-footer>
+    <ion-segment style="background:#3B6593">
+      <ion-segment-button style="color:white" icon-left>
+        <ion-icon name="home"></ion-icon>
+        <div style="margin-top: -20px !important; ">
+          Heizöl
+        </div>
+      </ion-segment-button>
+      <ion-segment-button value="diesel_10" style=color:white>
+        <ion-icon name="home"></ion-icon>
+        <div style="margin-top: -20px !important; ">
+          Diesel
+        </div>
+
+      </ion-segment-button>
+    </ion-segment>
+  </ion-footer> -->
+<tabs [TabList]="tabObject" (OnTabClickEvent)="tabClick($event)" ></tabs>

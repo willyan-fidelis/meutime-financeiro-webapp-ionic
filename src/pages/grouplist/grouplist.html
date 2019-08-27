@@ -1,0 +1,58 @@
+<ion-header>
+<!--   <ion-navbar>
+    <ion-title>
+      <img class="center" alt="logo" height="40"  [src]="this.config.host.LoginPage.imgPath_logo3" >
+    </ion-title>
+  </ion-navbar> -->
+  <header></header>
+</ion-header>
+
+<ion-content>
+    
+
+  <ion-card>
+    <ion-list>
+      <ion-list-header color="list-element-title" (click)="this.group.getUserGroupsAndCashFlow()">
+      Lista de Grupos
+    </ion-list-header>
+
+    <ion-item-sliding *ngFor="let _item of this.group.getUsergroups(); let i = index">
+      <ion-item (click)="showUserGrouptDetais(i)">
+        <ion-avatar item-start>
+          <ion-icon class="big-size" name="ios-football-outline"></ion-icon>
+        </ion-avatar>
+        <h2 class="h2">{{_item.Name}}</h2>
+        <p font size="30">Descrição: {{_item.Description}}</p>
+        <p font size="30">Criado em: {{_item.Date}}</p>
+        <p font size="30">Valor: {{_item.Value}}</p>
+        <ion-badge *ngIf="userIsadmin(_item)" item-end>Administrador</ion-badge>
+        <!-- <p>Back off man, I'm a scientist.</p> -->
+      </ion-item>
+      <ion-item-options>
+        <!-- <button ion-button color="light" icon-start>
+          <ion-icon name="ios-more"></ion-icon>
+          More
+        </button> -->
+        <button (click)="showUserGrouptDetais(i)" ion-button color="primary" icon-start>
+          <ion-icon name="md-eye"></ion-icon>
+          Ver
+        </button>
+        <button (click)="deletegroup(_item.TGroup_OID,_item.Name)" ion-button color="secondary" icon-start>
+          <ion-icon name="md-trash"></ion-icon>
+          Apagar
+        </button>
+      </ion-item-options>
+    </ion-item-sliding>
+    </ion-list>
+  </ion-card>
+
+  <ion-fab right bottom>
+    <button ion-fab color="primary" (click)="addgroup()"><ion-icon name="add"></ion-icon></button>
+    <br><br><br><br>
+  </ion-fab>
+
+  <br><br><br><br>
+
+</ion-content>
+
+<tabs [TabList]="tabObject" (OnTabClickEvent)="tabClick($event)" ></tabs>

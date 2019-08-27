@@ -1,0 +1,27 @@
+<ion-toolbar no-border-top>
+  <ion-segment [(ngModel)]="xxx">
+    <ion-segment-button value="previous" (click)="previousClick()">
+      Mês Anterior
+    </ion-segment-button>
+    <ion-segment-button value="current" (click)="currentClick()">
+      Mês Atual
+    </ion-segment-button>
+    <ion-segment-button value="next" (click)="nextClick()">
+      Mês Próximo
+    </ion-segment-button>
+  </ion-segment>
+</ion-toolbar>
+<div>
+    <p *ngIf="tabValue == 1" class="timeTitle">Janeiro</p>
+    <p *ngIf="tabValue == 2" class="timeTitle">Fevereiro</p>
+    <p *ngIf="tabValue == 3" class="timeTitle">Março</p>
+    <p *ngIf="tabValue == 4" class="timeTitle">Abril</p>
+    <p *ngIf="tabValue == 5" class="timeTitle">Maio</p>
+    <p *ngIf="tabValue == 6" class="timeTitle">Junho</p>
+    <p *ngIf="tabValue == 7" class="timeTitle">Julho</p>
+    <p *ngIf="tabValue == 8" class="timeTitle">Agosto</p>
+    <p *ngIf="tabValue == 9" class="timeTitle">Setembro</p>
+    <p *ngIf="tabValue == 10" class="timeTitle">Outubro</p>
+    <p *ngIf="tabValue == 11" class="timeTitle">Novembro</p>
+    <p *ngIf="tabValue == 12" class="timeTitle">Dezembro</p>
+</div>
